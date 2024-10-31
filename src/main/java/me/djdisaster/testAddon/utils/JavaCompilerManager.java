@@ -129,7 +129,7 @@ public class JavaCompilerManager {
         }
 
         if (software.isEmpty()) {
-            Bukkit.getConsoleSender().sendMessage("Unknown server software probably gonna cause issues");
+            Bukkit.getLogger().warning("Unknown server software probably gonna cause issues") ;
         } else {
             files.addAll(listFiles(new File(Bukkit.getWorldContainer(), "plugins")));
         }
