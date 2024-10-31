@@ -1,0 +1,4 @@
+name: TestAddon
+version: '1.0'
+main: me.djdisaster.testAddon.TestAddon
+api-version: '1.21'
