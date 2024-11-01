@@ -52,6 +52,8 @@ public class CustomMap {
 
 
 
+
+
     // Should only be called with client side maps.
     public void setPixel(Player player, int x, int y, int r, int g, int b) {
         if (!isClientSide) {

@@ -6,7 +6,7 @@
 
     <groupId>me.djdisaster</groupId>
     <artifactId>TestAddon</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>TestAddon</name>
