@@ -6,8 +6,6 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-
 public class CustomMapRenderer extends MapRenderer {
 
 

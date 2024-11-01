@@ -6,16 +6,11 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
 import me.djdisaster.testAddon.utils.ReadImage;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.io.*;
-import java.nio.file.Files;
 
 public class ExprImageFrom extends SimpleExpression<ReadImage> {
     static {
@@ -25,7 +20,6 @@ public class ExprImageFrom extends SimpleExpression<ReadImage> {
         );
     }
 
-
     private Expression<String> filePath;
     private boolean isURL;
 
@@ -33,14 +27,9 @@ public class ExprImageFrom extends SimpleExpression<ReadImage> {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         filePath = (Expression<String>) exprs[0];
-        if (parseResult.mark == 1) {
-            isURL = false;
-        } else {
-            isURL = true;
-        }
+        isURL = parseResult.mark != 1;
         return true;
     }
-
 
     @Override
     public boolean isSingle() {
@@ -59,7 +48,6 @@ public class ExprImageFrom extends SimpleExpression<ReadImage> {
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "image from file";
+        return "image from " + filePath.toString(event, b);
     }
-
 }

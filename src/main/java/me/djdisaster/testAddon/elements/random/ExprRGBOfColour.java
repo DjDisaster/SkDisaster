@@ -6,18 +6,11 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
-import me.djdisaster.testAddon.utils.ReadImage;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.awt.*;
-import java.io.*;
-import java.nio.file.Files;
 
 public class ExprRGBOfColour extends SimpleExpression<Integer> {
     static {
@@ -38,7 +31,6 @@ public class ExprRGBOfColour extends SimpleExpression<Integer> {
         return true;
     }
 
-
     @Override
     public boolean isSingle() {
         return true;
@@ -51,16 +43,15 @@ public class ExprRGBOfColour extends SimpleExpression<Integer> {
 
     @Override
     protected @Nullable Integer[] get(Event event) {
-        int value;
-        if (colourToCheck == 1) {
-            value = colour.getSingle(event).getRed();
-        } else if (colourToCheck == 2) {
-            value = colour.getSingle(event).getBlue();
-        } else if (colourToCheck == 3) {
-            value = colour.getSingle(event).getGreen();
-        } else {
-            return null;
-        }
+        Color colour = this.colour.getSingle(event);
+        if (colour == null) return null;
+
+        int value = switch (colourToCheck) {
+            case 1 -> colour.getRed();
+            case 2 -> colour.getBlue();
+            case 3 -> colour.getGreen();
+            default -> 0;
+        };
 
         return new Integer[]{value};
 
@@ -68,7 +59,11 @@ public class ExprRGBOfColour extends SimpleExpression<Integer> {
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "compile[d] java [code] from %string% with class name %string%";
+        return switch (colourToCheck) {
+            case 1 -> "red of " + colour.toString(event, b);
+            case 2 -> "blue of " + colour.toString(event, b);
+            case 3 -> "green of " + colour.toString(event, b);
+            default -> "";
+        };
     }
-
 }

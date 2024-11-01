@@ -4,17 +4,14 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.function.Function;
 import ch.njol.skript.lang.function.Functions;
 import ch.njol.util.Kleenean;
 import me.djdisaster.testAddon.utils.AsyncManager;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EffRunFunction extends Effect {
@@ -38,23 +35,18 @@ public class EffRunFunction extends Effect {
             this.arguments = (Expression<Object>) expressions[2];
         }
 
-        if (parser.mark == 1) {
-            runAsync = Kleenean.TRUE;
-        } else {
-            runAsync = Kleenean.FALSE;
-        }
+        runAsync = parser.mark == 1 ? Kleenean.TRUE : Kleenean.FALSE;
 
         return true;
     }
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        return "";//""Send bungee message to " + players.toString(event, debug) + " with text " + text.toString(event, debug);
+        return "run function " + functionName.toString(event, debug) + " from " + file.toString(event, debug) + " called with " + arguments.toString(event, debug);
     }
 
     @Override
     protected void execute(Event event) {
-
         if (runAsync.isTrue()) {
             AsyncManager.getSingleThreadExecutor().execute(() -> {
                 runEvent(event);
@@ -65,8 +57,9 @@ public class EffRunFunction extends Effect {
     }
 
     public void runEvent(Event event) {
-
         String fName = functionName.getSingle(event);
+        if (fName == null) return;
+
         // lil stealing from skript-reflect
         Object[] args = arguments == null ? new Object[0] : arguments.getArray(event);
 
@@ -82,15 +75,19 @@ public class EffRunFunction extends Effect {
             n++;
         }
 
-
         if (file == null) {
-            Functions.getGlobalFunction(fName).execute(finalArgs);
+            Function<?> function = Functions.getGlobalFunction(fName);
+            if (function == null) return;
+            function.execute(finalArgs);
         } else {
             String fileName = file.getSingle(event);
+            if (fileName == null) return;
             if (!fileName.endsWith(".sk")) {
                 fileName += ".sk";
             }
-            Functions.getFunction(fName, fileName).execute(finalArgs);
+            Function<?> function = Functions.getFunction(fName, fileName);
+            if (function == null) return;
+            function.execute(finalArgs);
         }
     }
 }

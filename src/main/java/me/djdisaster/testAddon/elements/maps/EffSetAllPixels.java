@@ -4,20 +4,10 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.function.Functions;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.AsyncManager;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
 import me.djdisaster.testAddon.utils.CustomMap;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.checkerframework.checker.nullness.qual.Nullable;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class EffSetAllPixels extends Effect {
     static {
@@ -28,7 +18,6 @@ public class EffSetAllPixels extends Effect {
     private Expression<Number> r;
     private Expression<Number> g;
     private Expression<Number> b;
-    private Kleenean runAsync;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -37,24 +26,25 @@ public class EffSetAllPixels extends Effect {
         this.r = (Expression<Number>) expressions[1];
         this.g = (Expression<Number>) expressions[2];
         this.b = (Expression<Number>) expressions[3];
-
         return true;
     }
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        return "";//""Send bungee message to " + players.toString(event, debug) + " with text " + text.toString(event, debug);
+        return "set all pixels of " + map.toString(event, debug) + " to " + r.toString(event, debug) + "," + g.toString(event, debug) + "," + b.toString(event, debug);
     }
 
     @Override
     protected void execute(Event event) {
-        map.getSingle(event).setAllPixels(
-                r.getSingle(event).intValue(),
-                g.getSingle(event).intValue(),
-                b.getSingle(event).intValue()
+        Number r = this.r.getSingle(event);
+        Number g = this.g.getSingle(event);
+        Number b = this.b.getSingle(event);
+        CustomMap map = this.map.getSingle(event);
+        if (r == null || g == null || b == null || map == null) return;
+        map.setAllPixels(
+                r.intValue(),
+                g.intValue(),
+                b.intValue()
         );
-
     }
-
-
 }

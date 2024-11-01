@@ -29,15 +29,17 @@ public class EffRunJavaCode extends Effect {
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        return "";//""Send bungee message to " + players.toString(event, debug) + " with text " + text.toString(event, debug);
+        return "run method " + methodName.toString(event, debug) + " in " + compiledJavaClass.toString(event, debug);
     }
 
     @Override
     protected void execute(Event event) {
-        if (compiledJavaClass.getSingle(event) instanceof CompiledJavaClass) {
-            ((CompiledJavaClass) compiledJavaClass.getSingle(event)).runMethod(methodName.getSingle(event));
-        } else if (compiledJavaClass.getSingle(event) instanceof CompiledJavaClassInstance) {
-            ((CompiledJavaClassInstance) compiledJavaClass.getSingle(event)).runMethod(methodName.getSingle(event));
+        Object compiledJavaClass = this.compiledJavaClass.getSingle(event);
+        String methodName = this.methodName.getSingle(event);
+        if (compiledJavaClass instanceof CompiledJavaClass) {
+            ((CompiledJavaClass) compiledJavaClass).runMethod(methodName);
+        } else if (compiledJavaClass instanceof CompiledJavaClassInstance) {
+            ((CompiledJavaClassInstance) compiledJavaClass).runMethod(methodName);
         } else {
             Bukkit.getLogger().warning("You have tried to run a method on a non-class/instance");
         }

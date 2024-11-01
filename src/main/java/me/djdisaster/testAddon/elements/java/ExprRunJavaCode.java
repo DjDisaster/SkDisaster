@@ -22,7 +22,6 @@ public class ExprRunJavaCode extends SimpleExpression<Object> {
         );
     }
 
-
     private Expression<String> methodName;
     private Expression<Object> compiledJavaClass;
 
@@ -33,7 +32,6 @@ public class ExprRunJavaCode extends SimpleExpression<Object> {
         compiledJavaClass = (Expression<Object>) exprs[1];
         return true;
     }
-
 
     @Override
     public boolean isSingle() {
@@ -47,14 +45,15 @@ public class ExprRunJavaCode extends SimpleExpression<Object> {
 
     @Override
     protected @Nullable Object[] get(Event event) {
-
-        if (compiledJavaClass.getSingle(event) instanceof CompiledJavaClass) {
+        Object compiledJavaClass = this.compiledJavaClass.getSingle(event);
+        String methodName = this.methodName.getSingle(event);
+        if (compiledJavaClass instanceof CompiledJavaClass) {
             return new Object[]{
-                    ((CompiledJavaClass) compiledJavaClass.getSingle(event)).runMethod(methodName.getSingle(event))
+                    ((CompiledJavaClass) compiledJavaClass).runMethod(methodName)
             };
-        } else if (compiledJavaClass.getSingle(event) instanceof CompiledJavaClassInstance) {
+        } else if (compiledJavaClass instanceof CompiledJavaClassInstance) {
             return new Object[]{
-                    ((CompiledJavaClassInstance) compiledJavaClass.getSingle(event)).runMethod(methodName.getSingle(event))
+                    ((CompiledJavaClassInstance) compiledJavaClass).runMethod(methodName)
             };
         } else {
             Bukkit.getLogger().warning("You have tried to run a method on a non-class/instance");
@@ -64,7 +63,6 @@ public class ExprRunJavaCode extends SimpleExpression<Object> {
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "compile[d] java [code] from %string% with class name %string%";
+        return "run method " + methodName.toString(event, b) + " in " + compiledJavaClass.toString(event, b);
     }
-
 }

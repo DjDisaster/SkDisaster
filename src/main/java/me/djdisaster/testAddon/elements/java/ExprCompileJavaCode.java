@@ -32,7 +32,6 @@ public class ExprCompileJavaCode extends SimpleExpression<CompiledJavaClass> {
         return true;
     }
 
-
     @Override
     public boolean isSingle() {
         return true;
@@ -45,10 +44,8 @@ public class ExprCompileJavaCode extends SimpleExpression<CompiledJavaClass> {
 
     @Override
     protected @Nullable CompiledJavaClass[] get(Event event) {
-
-
         // public class Test { public static void run() { System.out.println("Hello, world!"); } }
-        CompiledJavaClass compiledJavaClass = null;
+        CompiledJavaClass compiledJavaClass;
         try {
             compiledJavaClass = JavaCompilerManager.compile(className.getSingle(event), code.getSingle(event));
         } catch (Exception e) {
@@ -60,6 +57,6 @@ public class ExprCompileJavaCode extends SimpleExpression<CompiledJavaClass> {
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "compile[d] java [code] from %string% with class name %string%";
+        return "compiled java code from " + code.toString(event, b) + " with class name " + className.toString(event, b);
     }
 }
