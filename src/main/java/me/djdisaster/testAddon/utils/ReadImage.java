@@ -5,15 +5,20 @@ import org.bukkit.Color;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 
 public class ReadImage {
 
     private Color[][] colors;
     private boolean valid = false;
-    public ReadImage(String path) {
+    public ReadImage(String path, boolean isURL) {
         BufferedImage image;
         try {
-            image = ImageIO.read(new File(path));
+            if (isURL) {
+                image = ImageIO.read(new URL(path));
+            } else {
+                image = ImageIO.read(new File(path));
+            }
         } catch (Exception ignored) {
             return;
         }

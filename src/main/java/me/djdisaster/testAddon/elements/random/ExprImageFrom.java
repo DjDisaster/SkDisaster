@@ -21,17 +21,23 @@ public class ExprImageFrom extends SimpleExpression<ReadImage> {
     static {
         Skript.registerExpression(
                 ExprImageFrom.class, ReadImage.class, ExpressionType.SIMPLE,
-                "image from file %string%"
+                "image from (1¦file|2¦URL) %string%"
         );
     }
 
 
     private Expression<String> filePath;
+    private boolean isURL;
 
     @SuppressWarnings({"NullableProblems", "unchecked"})
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         filePath = (Expression<String>) exprs[0];
+        if (parseResult.mark == 1) {
+            isURL = false;
+        } else {
+            isURL = true;
+        }
         return true;
     }
 
@@ -48,7 +54,7 @@ public class ExprImageFrom extends SimpleExpression<ReadImage> {
 
     @Override
     protected @Nullable ReadImage[] get(Event event) {
-        return new ReadImage[]{new ReadImage(filePath.getSingle(event))};
+        return new ReadImage[]{new ReadImage(filePath.getSingle(event), isURL)};
     }
 
     @Override
