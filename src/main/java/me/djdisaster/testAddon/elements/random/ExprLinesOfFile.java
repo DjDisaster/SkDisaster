@@ -6,8 +6,6 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +22,6 @@ public class ExprLinesOfFile extends SimpleExpression<String> {
         );
     }
 
-
     private Expression<String> fileName;
 
     @SuppressWarnings({"NullableProblems", "unchecked"})
@@ -33,7 +30,6 @@ public class ExprLinesOfFile extends SimpleExpression<String> {
         fileName = (Expression<String>) exprs[0];
         return true;
     }
-
 
     @Override
     public boolean isSingle() {
@@ -47,7 +43,9 @@ public class ExprLinesOfFile extends SimpleExpression<String> {
 
     @Override
     protected @Nullable String[] get(Event event) {
-        File file = new File(fileName.getSingle(event));
+        String fileName = this.fileName.getSingle(event);
+        if (fileName == null) return null;
+        File file = new File(fileName);
         if (!file.exists()) {
             Bukkit.getLogger().warning("Tried to read from file: " + file.getPath() + " but it doesn't exist!");
             return null;
@@ -61,7 +59,6 @@ public class ExprLinesOfFile extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "compile[d] java [code] from %string% with class name %string%";
+        return "lines of file " + fileName.toString(event, b);
     }
-
 }

@@ -6,18 +6,12 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
 import me.djdisaster.testAddon.utils.ReadImage;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.awt.*;
-import java.io.*;
-import java.nio.file.Files;
 
 public class ExprPixelOfImage extends SimpleExpression<Color> {
     static {
@@ -53,14 +47,17 @@ public class ExprPixelOfImage extends SimpleExpression<Color> {
 
     @Override
     protected @Nullable Color[] get(Event event) {
+        Number x = this.x.getSingle(event);
+        Number y = this.y.getSingle(event);
+        ReadImage image = this.image.getSingle(event);
+        if (x == null || y == null | image == null) return null;
         return new Color[]{
-                image.getSingle(event).getPixelAt(x.getSingle(event).intValue(),y.getSingle(event).intValue())
+                image.getPixelAt(x.intValue(), y.intValue())
         };
     }
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "compile[d] java [code] from %string% with class name %string%";
+        return "pixel " + x.toString(event, b) + ", " + y.toString(event, b) + " of " + image.toString(event, b);
     }
-
 }

@@ -4,20 +4,10 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.function.Functions;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.AsyncManager;
-import me.djdisaster.testAddon.utils.CompiledJavaClass;
-import me.djdisaster.testAddon.utils.CompiledJavaClassInstance;
 import me.djdisaster.testAddon.utils.CustomMap;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.checkerframework.checker.nullness.qual.Nullable;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class EffSetPixel extends Effect {
     static {
@@ -30,7 +20,6 @@ public class EffSetPixel extends Effect {
     private Expression<Number> r;
     private Expression<Number> g;
     private Expression<Number> b;
-    private Kleenean runAsync;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -47,18 +36,25 @@ public class EffSetPixel extends Effect {
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        return "";//""Send bungee message to " + players.toString(event, debug) + " with text " + text.toString(event, debug);
+        return "set pixel color " + r.toString(event, debug) + "," + g.toString(event, debug) + "," + b.toString(event, debug) + " at " + x.toString(event, debug) + "," + y.toString(event, debug) + " of " + map.toString(event, debug);
     }
 
     @Override
     protected void execute(Event event) {
-        map.getSingle(event).setPixel(
-                x.getSingle(event).intValue(),
-                y.getSingle(event).intValue(),
+        Number x = this.x.getSingle(event);
+        Number y = this.y.getSingle(event);
+        Number r = this.r.getSingle(event);
+        Number g = this.g.getSingle(event);
+        Number b = this.b.getSingle(event);
+        CustomMap map = this.map.getSingle(event);
+        if (x == null || y == null || r == null || g == null || b == null || map == null) return;
 
-                r.getSingle(event).intValue(),
-                g.getSingle(event).intValue(),
-                b.getSingle(event).intValue()
+        map.setPixel(
+                x.intValue(),
+                y.intValue(),
+                r.intValue(),
+                g.intValue(),
+                b.intValue()
         );
 
     }

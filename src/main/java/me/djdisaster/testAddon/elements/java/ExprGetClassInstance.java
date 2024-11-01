@@ -31,7 +31,6 @@ public class ExprGetClassInstance extends SimpleExpression<CompiledJavaClassInst
         return true;
     }
 
-
     @Override
     public boolean isSingle() {
         return true;
@@ -44,18 +43,18 @@ public class ExprGetClassInstance extends SimpleExpression<CompiledJavaClassInst
 
     @Override
     protected @Nullable CompiledJavaClassInstance[] get(Event event) {
-
-        if (!(compiledJavaClass.getSingle(event) instanceof CompiledJavaClass)) {
+        Object compiledJavaClass = this.compiledJavaClass.getSingle(event);
+        if (!(compiledJavaClass instanceof CompiledJavaClass)) {
             Bukkit.getLogger().warning("You have tried to create an instance of a non-class Object");
             return null;
         }
-        CompiledJavaClassInstance instance = ((CompiledJavaClass) compiledJavaClass.getSingle(event)).newInstance();
+        CompiledJavaClassInstance instance = ((CompiledJavaClass) compiledJavaClass).newInstance();
 
         return new CompiledJavaClassInstance[]{instance};
     }
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "compile[d] java [code] from %string% with class name %string%";
+        return "instance of " + compiledJavaClass.toString(event, b);
     }
 }
