@@ -6,7 +6,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.AsyncManager;
+import me.djdisaster.testAddon.utils.synchronization.AsyncHelper;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +41,7 @@ public class ExprVariableAsync extends SimpleExpression<Object> {
 
     @Override
     protected @Nullable Object[] get(Event event) {
-        return new Object[]{AsyncManager.getVariableAsync(variableName.getSingle(event))};
+        return new Object[]{AsyncHelper.getVariableAsync(variableName.getSingle(event))};
     }
 
     @Override

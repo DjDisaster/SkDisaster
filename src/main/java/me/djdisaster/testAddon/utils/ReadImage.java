@@ -11,6 +11,7 @@ public class ReadImage {
 
     private Color[][] colors;
     private boolean valid = false;
+
     public ReadImage(String path, boolean isURL) {
         BufferedImage image;
         try {

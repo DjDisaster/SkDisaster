@@ -1,16 +1,22 @@
 package me.djdisaster.testAddon.utils;
 
+import ch.njol.skript.Skript;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import ch.njol.skript.Skript;
 
-import javax.tools.*;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -95,7 +101,7 @@ public class JavaCompilerManager {
         List<File> files = new ArrayList<>();
         File[] candidates = Bukkit.getWorldContainer().listFiles((dir, name) -> name.endsWith(".jar"));
         String software = "";
-        if (candidates != null) {
+        if (candidates == null) {
             try {
                 for (File candidate : candidates) {
                     try (ZipFile zip = new ZipFile(candidate)) {
@@ -129,7 +135,7 @@ public class JavaCompilerManager {
         }
 
         if (software.isEmpty()) {
-            Bukkit.getLogger().warning("Unknown server software probably gonna cause issues") ;
+            Bukkit.getLogger().warning("Unknown server software probably gonna cause issues");
         } else {
             files.addAll(listFiles(new File(Bukkit.getWorldContainer(), "plugins")));
         }

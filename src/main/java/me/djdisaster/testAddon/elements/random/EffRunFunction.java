@@ -7,7 +7,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.function.Function;
 import ch.njol.skript.lang.function.Functions;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.AsyncManager;
+import me.djdisaster.testAddon.utils.synchronization.AsyncHelper;
 import org.bukkit.event.Event;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -48,7 +48,7 @@ public class EffRunFunction extends Effect {
     @Override
     protected void execute(Event event) {
         if (runAsync.isTrue()) {
-            AsyncManager.getSingleThreadExecutor().execute(() -> {
+            AsyncHelper.getSingleThreadExecutor().execute(() -> {
                 runEvent(event);
             });
         } else {

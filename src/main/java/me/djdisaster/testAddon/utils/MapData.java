@@ -9,7 +9,7 @@ public class MapData {
     private Color[][] colors = new Color[128][128];
 
     public MapData() {
-        setAllPixels(new Color(0,0,0,0));
+        setAllPixels(new Color(0, 0, 0, 0));
     }
 
     public void setAllPixels(Color color) {
