@@ -16,6 +16,7 @@ public class CustomMap {
     private MapRenderer renderer;
     private int id;
     private ItemStack mapItem;
+
     public CustomMap(boolean isClientSide) {
 
         if (isClientSide) {
@@ -34,6 +35,7 @@ public class CustomMap {
 
 
     }
+
     public ItemStack getItem() {
         return mapItem;
     }
@@ -41,24 +43,21 @@ public class CustomMap {
     // Should not be called with client side maps.
     public void setPixel(int x, int y, int r, int g, int b) {
         if (!isClientSide) {
-            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r,g,b));
+            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r, g, b));
         }
     }
+
     public void setAllPixels(int r, int g, int b) {
         if (!isClientSide) {
-            ((CustomMapRenderer) renderer).getMapData().setAllPixels(new Color(r,g,b));
+            ((CustomMapRenderer) renderer).getMapData().setAllPixels(new Color(r, g, b));
         }
     }
-
-
-
 
 
     // Should only be called with client side maps.
     public void setPixel(Player player, int x, int y, int r, int g, int b) {
         if (!isClientSide) {
-            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r,g,b));
+            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r, g, b));
         }
     }
-
 }
