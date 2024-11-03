@@ -89,10 +89,7 @@ public interface Binding<T> extends Atomic<T> {
             callback.accept(new ValueChangedEvent<>(previous, value));
         }
 
-        protected void propagate(
-                Action<Binding<T>> action,
-                Binding<T> source
-        ) {
+        protected void propagate(Action<Binding<T>> action, Binding<T> source) {
             references.forAliveReferences(true, (reference) -> {
                 if (reference.refersTo(source))
                     return;

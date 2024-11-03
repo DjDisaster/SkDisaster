@@ -1,5 +1,6 @@
 package me.djdisaster.testAddon.utils.reactivity.atomic;
 
+import me.djdisaster.testAddon.utils.reactivity.Binding;
 import me.djdisaster.testAddon.utils.reactivity.action.Action;
 import me.djdisaster.testAddon.utils.reactivity.action.Callback;
 

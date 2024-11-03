@@ -7,11 +7,13 @@ import org.bukkit.map.MapView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomMapRendererClientSide extends MapRenderer {
 
 
-    private HashMap<Player, MapData> mapDataMap = new HashMap<>();
+    private Map<Player, MapData> mapDataMap = new ConcurrentHashMap<>();
 
 
     @Override
