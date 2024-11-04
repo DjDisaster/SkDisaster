@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.djdisaster</groupId>
-    <artifactId>TestAddon</artifactId>
-    <version>1.0.3</version>
+    <artifactId>SkDisaster</artifactId>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
-    <name>TestAddon</name>
+    <name>SkDisaster</name>
 
     <properties>
         <java.version>21</java.version>
