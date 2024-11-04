@@ -1,4 +1,4 @@
-package me.djdisaster.testAddon.utils;
+package me.djdisaster.testAddon.utils.maps;
 
 import org.bukkit.entity.Player;
 import org.bukkit.map.MapCanvas;

@@ -1,32 +1,33 @@
-package me.djdisaster.testAddon.elements.random;
+package me.djdisaster.testAddon.elements.react;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.LiteralUtils;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.synchronization.AsyncHelper;
+import me.djdisaster.testAddon.utils.reactivity.Binding;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class ExprVariableAsync extends SimpleExpression<Object> {
+public class ExprNewVar extends SimpleExpression<Object> {
     static {
         Skript.registerExpression(
-                ExprVariableAsync.class, Object.class, ExpressionType.SIMPLE,
-                "variable %string% async"
+                ExprNewVar.class, Object.class, ExpressionType.SIMPLE,
+                "new reactive var[iable] with [value] %object%"
         );
     }
 
-    private Expression<String> variableName;
+    private Expression<Object> value;
 
     @SuppressWarnings({"NullableProblems", "unchecked"})
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        variableName = (Expression<String>) exprs[0];
-        return true;
+        value = LiteralUtils.defendExpression(exprs[0]);
+        return LiteralUtils.canInitSafely(value);
     }
 
     @Override
@@ -41,11 +42,13 @@ public class ExprVariableAsync extends SimpleExpression<Object> {
 
     @Override
     protected @Nullable Object[] get(Event event) {
-        return new Object[]{AsyncHelper.getVariableAsync(variableName.getSingle(event))};
+        return new Object[]{
+            Binding.create(value.getSingle(event))
+        };
     }
 
     @Override
     public String toString(@Nullable Event event, boolean b) {
-        return "variable " + variableName.toString(event, b) + " async";
+        return "reactive var value " + value.toString(event, b);
     }
 }

@@ -10,29 +10,43 @@ import java.io.IOException;
 public final class TestAddon extends JavaPlugin {
 
     private static TestAddon instance;
+
+    @SuppressWarnings("all")
     private SkriptAddon addon;
+
+    public static TestAddon getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
         Plugin skriptPlugin = getServer().getPluginManager().getPlugin("Skript");
+
         if (skriptPlugin == null) {
             getLogger().severe("Skript not found! Disabling plugin...");
             getServer().getPluginManager().disablePlugin(this);
+
             return;
         }
+
         if (!skriptPlugin.isEnabled()) {
             getLogger().severe("Skript is not enabled! Disabling plugin...");
             getServer().getPluginManager().disablePlugin(this);
+
             return;
         }
+
         if (!Skript.isAcceptRegistrations()) {
             getLogger().severe("Skript is not accepting registrations! Cannot load addon anymore. Disabling plugin...");
             getServer().getPluginManager().disablePlugin(this);
+
             return;
         }
 
         instance = this;
+
         addon = Skript.registerAddon(this);
+
         try {
             addon.loadClasses("me.djdisaster.testAddon", "elements");
         } catch (IOException e) {
@@ -43,9 +57,5 @@ public final class TestAddon extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    public static TestAddon getInstance() {
-        return instance;
     }
 }

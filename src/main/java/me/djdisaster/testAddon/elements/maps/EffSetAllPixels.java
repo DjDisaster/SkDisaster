@@ -5,7 +5,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.djdisaster.testAddon.utils.CustomMap;
+import me.djdisaster.testAddon.utils.maps.CustomMap;
 import org.bukkit.event.Event;
 import org.checkerframework.checker.nullness.qual.Nullable;
 

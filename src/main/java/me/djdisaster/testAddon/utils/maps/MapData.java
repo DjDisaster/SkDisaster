@@ -1,4 +1,4 @@
-package me.djdisaster.testAddon.utils;
+package me.djdisaster.testAddon.utils.maps;
 
 import org.bukkit.map.MapCanvas;
 
@@ -9,20 +9,20 @@ public class MapData {
     private Color[][] colors = new Color[128][128];
 
     public MapData() {
-        setAllPixels(new Color(0,0,0,0));
+        setAllPixels(new Color(0, 0, 0, 0));
     }
 
     public void setAllPixels(Color color) {
-        for (int i = 0; i < 128; i++) {
-            for (int n = 0; n < 128; n++) {
+        for (int i = 0; i < 127; i++) {
+            for (int n = 0; n < 127; n++) {
                 colors[i][n] = color;
             }
         }
     }
 
     public void draw(MapCanvas canvas) {
-        for (int i = 0; i < 128; i++) {
-            for (int n = 0; n < 128; n++) {
+        for (int i = 0; i < 127; i++) {
+            for (int n = 0; n < 127; n++) {
                 Color color = colors[i][n];
                 if (canvas.getPixelColor(i, n) != color) {
                     canvas.setPixelColor(i, n, color);
