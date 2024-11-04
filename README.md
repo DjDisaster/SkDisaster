@@ -1,9 +1,15 @@
-﻿# SkBadAddon
+﻿# SkDisaster
 
-Not got a name yet, Actual name in game will be TestAddon
-This addon aims to add random but (potentially) useful utilities
+A generic addon that aims to add random features other addons might not have such as:
+> Map support 
+> Reactive variables
+> Image reading support (file and URL)
+> Java code compiling from string
+> Reading of files
+> Have any more feature ideas? Feel free to post them on discord and they __might__ be added
 
 Discord: https://discord.gg/9kV7AuyFte
 
 Example Script (Image On Map): https://pastebin.com/qj07PrcH<br>
-Example Script (3d Projection): https://pastebin.com/X2AJHjuW
+Example Script (3d Projection): [https://pastebin.com/X2AJHjuW](https://pastebin.com/q5xNsPXS)
+
