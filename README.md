@@ -10,6 +10,6 @@ A generic addon that aims to add random features other addons might not have suc
 
 Discord: https://discord.gg/9kV7AuyFte
 
-Example Script (Image On Map): https://pastebin.com/qj07PrcH<br>
-Example Script (3d Projection): [https://pastebin.com/X2AJHjuW](https://pastebin.com/q5xNsPXS)
+[Example Script (Image On Map)](https://pastebin.com/q5xNsPXS)
+[Example Script (3d Projection)](https://pastebin.com/q5xNsPXS)
 
