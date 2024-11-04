@@ -8,8 +8,6 @@ A generic addon that aims to add random features other addons might not have suc
 > Reading of files<br>
 > Have any more feature ideas? Feel free to post them on [discord](https://discord.gg/9kV7AuyFte) and they __might__ be added<br>
 
-Discord: https://discord.gg/9kV7AuyFte
-
 [Example Script (Image On Map)](https://pastebin.com/q5xNsPXS) <br>
 [Example Script (3d Projection)](https://pastebin.com/q5xNsPXS)
 
