@@ -18,7 +18,7 @@ public class CustomMap {
     private MapRenderer renderer;
     private int id;
     private ItemStack mapItem;
-
+    private MapView mapView;
     public CustomMap(boolean isClientSide) {
 
         if (isClientSide) {
@@ -29,13 +29,17 @@ public class CustomMap {
 
         mapItem = new ItemStack(Material.FILLED_MAP);
         MapMeta mapMeta = (MapMeta) mapItem.getItemMeta();
-        MapView mapView = Bukkit.getServer().createMap(Bukkit.getWorlds().getFirst());
+        mapView = Bukkit.getServer().createMap(Bukkit.getWorlds().getFirst());
         mapView.getRenderers().clear();
         mapView.addRenderer(renderer);
         mapMeta.setMapView(mapView);
         mapItem.setItemMeta(mapMeta);
 
 
+    }
+
+    public MapView getView() {
+        return mapView;
     }
 
     public ItemStack getItem() {
