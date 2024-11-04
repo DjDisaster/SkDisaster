@@ -1,12 +1,12 @@
 ﻿# SkDisaster
 
 A generic addon that aims to add random features other addons might not have such as:
-> Map support 
-> Reactive variables
-> Image reading support (file and URL)
-> Java code compiling from string
-> Reading of files
-> Have any more feature ideas? Feel free to post them on discord and they __might__ be added
+> Map support<br>
+> Reactive variables<br>
+> Image reading support (file and URL)<br>
+> Java code compiling from string<br>
+> Reading of files<br>
+> Have any more feature ideas? Feel free to post them on discord and they __might__ be added<br>
 
 Discord: https://discord.gg/9kV7AuyFte
 
