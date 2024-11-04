@@ -6,7 +6,7 @@ A generic addon that aims to add random features other addons might not have suc
 > Image reading support (file and URL)<br>
 > Java code compiling from string<br>
 > Reading of files<br>
-> Have any more feature ideas? Feel free to post them on discord and they __might__ be added<br>
+> Have any more feature ideas? Feel free to post them on [discord](https://discord.gg/9kV7AuyFte) and they __might__ be added<br>
 
 Discord: https://discord.gg/9kV7AuyFte
 
