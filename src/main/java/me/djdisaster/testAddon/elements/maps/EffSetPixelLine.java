@@ -11,7 +11,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EffSetPixelLine extends Effect {
     static {
-        Skript.registerEffect(EffSetPixel.class, "draw line between %number%,[ ]%number% and %number%,[ ]%number% on %object% (coloured|colored|with) %number%,%number%,%number%");
+        Skript.registerEffect(EffSetPixelLine.class, "draw line between %number%,[ ]%number% and %number%,[ ]%number% on %object% (coloured|colored|with) %number%,%number%,%number%");
     }
 
     private Expression<Number> x;
