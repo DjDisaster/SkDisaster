@@ -11,7 +11,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EffSetPixelLine extends Effect {
     static {
-        Skript.registerEffect(EffSetPixelLine.class, "draw line between %number%,[ ]%number% and %number%,[ ]%number% on %object% (coloured|colored|with) %number%,%number%,%number%");
+        Skript.registerEffect(EffSetPixelLine.class, "draw line between %number%,[ ]%number% and %number%,[ ]%number% on %object% (coloured|colored|with) %number%,%number%,%number%[,[ ]%-number%]");
     }
 
     private Expression<Number> x;
@@ -22,6 +22,7 @@ public class EffSetPixelLine extends Effect {
     private Expression<Number> r;
     private Expression<Number> g;
     private Expression<Number> b;
+    private Expression<Number> alpha;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -34,6 +35,7 @@ public class EffSetPixelLine extends Effect {
         this.r = (Expression<Number>) expressions[5];
         this.g = (Expression<Number>) expressions[6];
         this.b = (Expression<Number>) expressions[7];
+        this.alpha = (Expression<Number>) expressions[8];
 
         return true;
     }
@@ -53,6 +55,12 @@ public class EffSetPixelLine extends Effect {
         Number g = this.g.getSingle(event);
         Number b = this.b.getSingle(event);
         CustomMap map = this.map.getSingle(event);
+
+        Number alpha = 255;
+        if (this.alpha != null) {
+            alpha = this.alpha.getSingle(event);
+        }
+
         if (x == null || y == null || r == null || g == null || b == null || map == null || x2 == null || y2 == null) return;
 
         map.drawLine(
@@ -62,7 +70,8 @@ public class EffSetPixelLine extends Effect {
                 y2.intValue(),
                 r.intValue(),
                 g.intValue(),
-                b.intValue()
+                b.intValue(),
+                alpha.intValue()
         );
 
     }

@@ -11,7 +11,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EffDrawSquare extends Effect {
     static {
-        Skript.registerEffect(EffDrawSquare.class, "draw square between %number%,[ ]%number% and %number%,[ ]%number% on %object% (coloured|colored|with) %number%,%number%,%number% [(1¦solid)]");
+        Skript.registerEffect(EffDrawSquare.class, "draw square between %number%,[ ]%number% and %number%,[ ]%number% on %object% (coloured|colored|with) %number%,%number%,%number%[,[ ]%-number%] [(1¦solid)]");
     }
 
     private Expression<Number> x;
@@ -22,6 +22,7 @@ public class EffDrawSquare extends Effect {
     private Expression<Number> r;
     private Expression<Number> g;
     private Expression<Number> b;
+    private Expression<Number> alpha;
     private Kleenean isSolid;
 
     @SuppressWarnings("unchecked")
@@ -35,6 +36,8 @@ public class EffDrawSquare extends Effect {
         this.r = (Expression<Number>) expressions[5];
         this.g = (Expression<Number>) expressions[6];
         this.b = (Expression<Number>) expressions[7];
+        this.alpha = (Expression<Number>) expressions[8];
+
 
         isSolid = (parser.mark == 1) ? Kleenean.TRUE : Kleenean.FALSE;
 
@@ -55,6 +58,11 @@ public class EffDrawSquare extends Effect {
         Number r = this.r.getSingle(event);
         Number g = this.g.getSingle(event);
         Number b = this.b.getSingle(event);
+        Number alpha = 255;
+        if (this.alpha != null) {
+            alpha = this.alpha.getSingle(event);
+        }
+
         CustomMap map = this.map.getSingle(event);
         if (x == null || y == null || r == null || g == null || b == null || map == null) return;
 
@@ -66,6 +74,7 @@ public class EffDrawSquare extends Effect {
                 r.intValue(),
                 g.intValue(),
                 b.intValue(),
+                alpha.intValue(),
                 isSolid.isTrue()
         );
 

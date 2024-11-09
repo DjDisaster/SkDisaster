@@ -11,7 +11,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EffSetPixel extends Effect {
     static {
-        Skript.registerEffect(EffSetPixel.class, "set pixel [color|colour] %number%,[ ]%number% of %object% to %number%,%number%,%number%");
+        Skript.registerEffect(EffSetPixel.class, "set pixel [color|colour] %number%,[ ]%number% of %object% to %number%,%number%,%number%[,[ ]%-number%]");
     }
 
     private Expression<Number> x;
@@ -20,6 +20,7 @@ public class EffSetPixel extends Effect {
     private Expression<Number> r;
     private Expression<Number> g;
     private Expression<Number> b;
+    private Expression<Number> alpha;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -30,6 +31,7 @@ public class EffSetPixel extends Effect {
         this.r = (Expression<Number>) expressions[3];
         this.g = (Expression<Number>) expressions[4];
         this.b = (Expression<Number>) expressions[5];
+        this.alpha = (Expression<Number>) expressions[6];
 
         return true;
     }
@@ -47,6 +49,12 @@ public class EffSetPixel extends Effect {
         Number g = this.g.getSingle(event);
         Number b = this.b.getSingle(event);
         CustomMap map = this.map.getSingle(event);
+
+        Number alpha = 255;
+        if (this.alpha != null) {
+            alpha = this.alpha.getSingle(event);
+        }
+
         if (x == null || y == null || r == null || g == null || b == null || map == null) return;
 
         map.setPixel(
@@ -54,7 +62,8 @@ public class EffSetPixel extends Effect {
                 y.intValue(),
                 r.intValue(),
                 g.intValue(),
-                b.intValue()
+                b.intValue(),
+                alpha.intValue()
         );
 
     }
