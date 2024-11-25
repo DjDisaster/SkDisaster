@@ -31,6 +31,10 @@ public class MapData {
         }
     }
 
+    public Color getPixel(int x, int y) {
+        return colors[x][y];
+    }
+
     public void setPixel(int x, int y, Color color) {
         colors[x][y] = color;
     }
