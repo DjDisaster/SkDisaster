@@ -53,6 +53,10 @@ public class CustomMap {
         }
     }
 
+    public Color getPixel(int x, int y) {
+        return ((CustomMapRenderer) renderer).getMapData().getPixel(x,y);
+    }
+
     public void setAllPixels(int r, int g, int b) {
         if (!isClientSide) {
             ((CustomMapRenderer) renderer).getMapData().setAllPixels(new Color(r, g, b));
