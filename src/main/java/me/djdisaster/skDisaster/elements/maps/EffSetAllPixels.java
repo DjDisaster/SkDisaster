@@ -11,13 +11,15 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EffSetAllPixels extends Effect {
     static {
-        Skript.registerEffect(EffSetAllPixels.class, "set [(color|colours) of] all pixels of %object% to %number%,%number%,%number%");
+        Skript.registerEffect(EffSetAllPixels.class, "set [(color|colours) of] all pixels of %object% to %number%,%number%,%number%[,[ ]%-number%]");
     }
 
     private Expression<CustomMap> map;
     private Expression<Number> r;
     private Expression<Number> g;
     private Expression<Number> b;
+    private Expression<Number> alpha;
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -26,6 +28,8 @@ public class EffSetAllPixels extends Effect {
         this.r = (Expression<Number>) expressions[1];
         this.g = (Expression<Number>) expressions[2];
         this.b = (Expression<Number>) expressions[3];
+        this.alpha = (Expression<Number>) expressions[4];
+
         return true;
     }
 
@@ -40,11 +44,16 @@ public class EffSetAllPixels extends Effect {
         Number g = this.g.getSingle(event);
         Number b = this.b.getSingle(event);
         CustomMap map = this.map.getSingle(event);
+        Number alpha = 255;
+        if (this.alpha != null) {
+            alpha = this.alpha.getSingle(event);
+        }
         if (r == null || g == null || b == null || map == null) return;
         map.setAllPixels(
                 r.intValue(),
                 g.intValue(),
-                b.intValue()
+                b.intValue(),
+                alpha.intValue()
         );
     }
 }

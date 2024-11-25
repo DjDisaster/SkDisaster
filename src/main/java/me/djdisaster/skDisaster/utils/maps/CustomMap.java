@@ -47,31 +47,33 @@ public class CustomMap {
     }
 
     // Should not be called with client side maps.
-    public void setPixel(int x, int y, int r, int g, int b) {
+    public void setPixel(int x, int y, int r, int g, int b, int alpha) {
         if (!isClientSide) {
-            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r, g, b));
+            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r, g, b, alpha));
         }
     }
+
 
     public Color getPixel(int x, int y) {
         return ((CustomMapRenderer) renderer).getMapData().getPixel(x,y);
     }
 
-    public void setAllPixels(int r, int g, int b) {
+    public void setAllPixels(int r, int g, int b, int alpha) {
+
         if (!isClientSide) {
-            ((CustomMapRenderer) renderer).getMapData().setAllPixels(new Color(r, g, b));
+            ((CustomMapRenderer) renderer).getMapData().setAllPixels(new Color(r, g, b, alpha));
         }
     }
 
 
     // Should only be called with client side maps.
-    public void setPixel(Player player, int x, int y, int r, int g, int b) {
+    public void setPixel(Player player, int x, int y, int r, int g, int b, int alpha) {
         if (!isClientSide) {
-            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r, g, b));
+            ((CustomMapRenderer) renderer).getMapData().setPixel(x, y, new Color(r, g, b, alpha));
         }
     }
 
-    public void drawLine(int x1, int y1, int x2, int y2, int r, int g, int b) {
+    public void drawLine(int x1, int y1, int x2, int y2, int r, int g, int b, int alpha) {
         List<Integer> xPositions = new ArrayList<>();
         List<Integer> yPositions = new ArrayList<>();
 
@@ -112,19 +114,19 @@ public class CustomMap {
         for (int i = 0; i < xPositions.size(); i++) {
             int x = xPositions.get(i);
             int y = yPositions.get(i);
-            setPixel(x, y,r,g,b);
+            setPixel(x, y,r,g,b,alpha);
         }
     }
 
-    public void drawSquareSolid(int x1, int y1, int x2, int y2, int r, int g, int b) {
+    public void drawSquareSolid(int x1, int y1, int x2, int y2, int r, int g, int b, int alpha) {
         for (int x = x1; x < x2; x++) {
             for (int y = y1; y < y2; y++) {
-                setPixel(x,y,r,g,b);
+                setPixel(x,y,r,g,b,alpha);
             }
         }
     }
 
-    public void drawSquare(int x1, int y1, int x2, int y2, int r, int g, int b, boolean solid) {
+    public void drawSquare(int x1, int y1, int x2, int y2, int r, int g, int b, int alpha, boolean solid) {
 
         if (
                 x1 < 0 || x1 >= 128 ||
@@ -136,18 +138,18 @@ public class CustomMap {
         }
 
         if (solid) {
-            drawSquareSolid(x1,y1,x2,y2,r,g,b);
+            drawSquareSolid(x1,y1,x2,y2,r,g,b,alpha);
             return;
         }
 
         // Top Left -> Top Right
-        drawLine(x1, y1, x2, y1,r,g,b);
+        drawLine(x1, y1, x2, y1,r,g,b,alpha);
         // Top Right to Bottom Right
-        drawLine(x2, y1, x2, y2,r,g,b);
+        drawLine(x2, y1, x2, y2,r,g,b,alpha);
         // Bottom Right to Bottom Left
-        drawLine(x2, y2, x1, y2,r,g,b);
+        drawLine(x2, y2, x1, y2,r,g,b,alpha);
         // Bottom Left to Top Left
-        drawLine(x1, y2, x1, y1,r,g,b);
+        drawLine(x1, y2, x1, y1,r,g,b,alpha);
 
 
     }
