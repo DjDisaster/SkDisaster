@@ -22,4 +22,17 @@ public class CompiledJavaClassInstance {
         return null;
     }
 
+    public Object runMethod(String methodName, Object[] args) {
+        Class<?> cls = instance.getClass();
+        try {
+            Method method = cls.getDeclaredMethod(methodName);
+            method.setAccessible(true);
+            return method.invoke(instance, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

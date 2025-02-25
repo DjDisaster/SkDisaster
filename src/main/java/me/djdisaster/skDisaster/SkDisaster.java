@@ -4,6 +4,8 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.codehaus.janino.Compiler;
+import org.codehaus.janino.SimpleCompiler;
 
 import java.io.IOException;
 
@@ -13,6 +15,7 @@ public final class SkDisaster extends JavaPlugin {
 
     @SuppressWarnings("all")
     private SkriptAddon addon;
+
 
     public static SkDisaster getInstance() {
         return instance;
@@ -44,7 +47,6 @@ public final class SkDisaster extends JavaPlugin {
         }
 
         instance = this;
-
         addon = Skript.registerAddon(this);
 
         try {

@@ -1,5 +1,7 @@
 package me.djdisaster.skDisaster.utils;
 
+import org.bukkit.Bukkit;
+
 import java.lang.reflect.Method;
 
 public class CompiledJavaClass {
@@ -22,7 +24,15 @@ public class CompiledJavaClass {
 
     public Object runMethod(String methodName, Object[] args) {
         try {
-            Method method = compiledClass.getMethod(methodName);
+            var params = new Class<?>[args.length];
+
+
+            for (int i = 0; i < args.length; i++) {
+                params[i] = args[i].getClass();
+            }
+
+
+            Method method = compiledClass.getMethod(methodName, params);
             return method.invoke(null, args);
         } catch (Exception e) {
             e.printStackTrace();

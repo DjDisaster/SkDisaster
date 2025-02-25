@@ -6,7 +6,7 @@
 
     <groupId>me.djdisaster</groupId>
     <artifactId>SkDisaster</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>SkDisaster</name>
@@ -86,6 +86,12 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>3.1.6</version>
         </dependency>
 
     </dependencies>
