@@ -1,0 +1,5 @@
+name: SkDisaster
+description: A cool skript addon.
+version: '1.2.0'
+main: me.djdisaster.skDisaster.SkDisaster
+api-version: '1.21'
