@@ -6,7 +6,7 @@
 
     <groupId>me.djdisaster</groupId>
     <artifactId>SkDisaster</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>SkDisaster</name>
@@ -65,6 +65,8 @@
             <url>https://repo.skriptlang.org/releases</url>
         </repository>
 
+
+
     </repositories>
 
     <dependencies>
@@ -94,5 +96,16 @@
             <version>3.1.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.14.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>1.14.13</version>
+        </dependency>
     </dependencies>
 </project>

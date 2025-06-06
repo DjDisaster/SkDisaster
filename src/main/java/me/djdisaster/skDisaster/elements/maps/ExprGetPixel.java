@@ -19,7 +19,7 @@ public class ExprGetPixel extends SimpleExpression<Color> {
     static {
         Skript.registerExpression(
                 ExprGetPixel.class, Color.class, ExpressionType.SIMPLE,
-                "pixel %number%,[ ]%number% of %object%"
+                "pixel %number%,[ ]%number% of map %object%"
         );
     }
 

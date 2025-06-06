@@ -17,7 +17,7 @@ public class ExprPixelOfImage extends SimpleExpression<Color> {
     static {
         Skript.registerExpression(
                 ExprPixelOfImage.class, Color.class, ExpressionType.SIMPLE,
-                "pixel %number%,[ ]%number% of %object%"
+                "pixel %number%,[ ]%number% of image %object%"
         );
     }
 

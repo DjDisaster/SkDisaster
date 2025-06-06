@@ -2,6 +2,10 @@ package me.djdisaster.skDisaster;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.agent.ByteBuddyAgent;
+import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
+import net.bytebuddy.matcher.ElementMatchers;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.codehaus.janino.Compiler;
@@ -23,6 +27,7 @@ public final class SkDisaster extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ByteBuddyAgent.install();
         Plugin skriptPlugin = getServer().getPluginManager().getPlugin("Skript");
 
         if (skriptPlugin == null) {
