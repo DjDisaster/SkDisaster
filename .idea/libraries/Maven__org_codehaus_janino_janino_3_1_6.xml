@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: org.codehaus.janino:janino:3.1.6" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.codehaus.janino" artifactId="janino" version="3.1.6" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/janino/janino/3.1.6/janino-3.1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/janino/janino/3.1.6/janino-3.1.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/janino/janino/3.1.6/janino-3.1.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

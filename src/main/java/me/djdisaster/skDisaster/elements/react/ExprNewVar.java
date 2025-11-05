@@ -9,14 +9,13 @@ import ch.njol.skript.util.LiteralUtils;
 import ch.njol.util.Kleenean;
 import me.djdisaster.skDisaster.utils.reactivity.Binding;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class ExprNewVar extends SimpleExpression<Object> {
+public class ExprNewVar extends SimpleExpression<Binding> {
     static {
         Skript.registerExpression(
-                ExprNewVar.class, Object.class, ExpressionType.SIMPLE,
+                ExprNewVar.class, Binding.class, ExpressionType.SIMPLE,
                 "new reactive var[iable] with [value] %object%"
         );
     }
@@ -36,14 +35,14 @@ public class ExprNewVar extends SimpleExpression<Object> {
     }
 
     @Override
-    public @NotNull Class<? extends Object> getReturnType() {
-        return Object.class;
+    public Class<? extends Binding> getReturnType() {
+        return Binding.class;
     }
 
     @Override
-    protected @Nullable Object[] get(Event event) {
-        return new Object[]{
-            Binding.create(value.getSingle(event))
+    protected @Nullable Binding[] get(Event event) {
+        return new Binding[]{
+            new Binding(value.getSingle(event))
         };
     }
 

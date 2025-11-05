@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.SkriptLang:Skript:2.10.2" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.github.SkriptLang" artifactId="Skript" version="2.10.2" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/SkriptLang/Skript/2.10.2/Skript-2.10.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/SkriptLang/Skript/2.10.2/Skript-2.10.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/SkriptLang/Skript/2.10.2/Skript-2.10.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -7,23 +7,27 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.function.Functions;
 import ch.njol.util.Kleenean;
 import me.djdisaster.skDisaster.utils.reactivity.Binding;
+import me.djdisaster.skDisaster.utils.reactivity.BindingSkriptListener;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EffAddValueChangeListener extends Effect {
 
     static {
-        Skript.registerEffect(EffAddValueChangeListener.class, "add [new] listener to %object% to run [function] [named] %string%");
+        Skript.registerEffect(EffAddValueChangeListener.class, "add [new] listener to %object% to run [function] [named] %string% [with id %-string%]");
     }
 
     private Expression<Object> binding;
     private Expression<String> functionName;
+    private Expression<String> id;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parser) {
         this.binding = (Expression<Object>) expressions[0];
         this.functionName = (Expression<String>) expressions[1];
+        this.id = (Expression<String>) expressions[2];
 
         return true;
     }
@@ -39,25 +43,24 @@ public class EffAddValueChangeListener extends Effect {
         if (this.binding.getSingle(event) == null) {
             return;
         }
-        if (!(this.binding.getSingle(event) instanceof Binding.Impl<?>)) {
+
+        Binding binding = (Binding) this.binding.getSingle(event);
+        if (binding == null) {
+            Bukkit.getLogger().warning("EffAddValueChangeListener called with null. Trying to add: " + functionName.getSingle(event));
             return;
         }
-
-        Binding<Object> binding = (Binding<Object>) this.binding.getSingle(event);
         String functionName = this.functionName.getSingle(event);
+        String id;
+        if (this.id == null) {
+            id = "";
+        } else {
+            id = this.id.getSingle(event);
+        }
 
-        binding.onValueChangedEvent((e) -> {
-            Functions.getGlobalFunction(functionName).execute(new Object[][]{
-                    new Object[]{e},
-                    new Object[]{e.previous()},
-                    new Object[]{e.current()}
-
-            });
-        });
-
-
-
-
+        binding.addListener(new BindingSkriptListener(
+                functionName,
+                id
+        ));
     }
 
 
