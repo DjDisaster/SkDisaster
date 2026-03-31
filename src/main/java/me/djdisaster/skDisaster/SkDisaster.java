@@ -2,6 +2,7 @@ package me.djdisaster.skDisaster;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+import me.djdisaster.skDisaster.utils.velocity.VelocityUtils;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
@@ -53,6 +54,9 @@ public final class SkDisaster extends JavaPlugin {
 
         instance = this;
         addon = Skript.registerAddon(this);
+
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new VelocityUtils());
 
         try {
             addon.loadClasses("me.djdisaster.skDisaster", "elements");
