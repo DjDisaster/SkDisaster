@@ -4,7 +4,7 @@
   <groupId>me.djdisaster</groupId>
   <artifactId>SkDisaster</artifactId>
   <name>SkDisaster</name>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
