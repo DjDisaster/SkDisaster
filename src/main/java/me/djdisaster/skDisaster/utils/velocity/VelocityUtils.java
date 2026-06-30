@@ -22,7 +22,7 @@ public class VelocityUtils implements PluginMessageListener {
 
     private static final HashMap<String, Object> savedValues = new HashMap<>();
     private static final HashMap<String, Queue<Runnable>> waiters = new HashMap<>();
-    private static final Set<String> inFlight = new HashSet<>();
+    private static final HashMap<String, Object> inFlight = new HashMap<>();
     private static final Map<String, Queue<Consumer<Object>>> callbacks = new HashMap<>();
 
     public static Object getSavedValue(String index) {
@@ -63,7 +63,7 @@ public class VelocityUtils implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if (!channel.equals("BungeeCord")) {
+        if (!channel.equalsIgnoreCase("BungeeCord") && !channel.equalsIgnoreCase("bungeecord:main")) {
             return;
         }
 
@@ -126,10 +126,11 @@ public class VelocityUtils implements PluginMessageListener {
     public static void fetch(String key, Runnable resume, Payload payload) {
         waiters.computeIfAbsent(key, k -> new ArrayDeque<>()).add(resume);
 
-        if (inFlight.contains(key)) {
+        if (inFlight.containsKey(key)) {
             return;
         }
-        inFlight.add(key);
+        Object token = new Object();
+        inFlight.put(key, token);
 
         Player sender = Bukkit.getOnlinePlayers().stream().findFirst().orElse(null);
         if (sender == null) {
@@ -149,15 +150,22 @@ public class VelocityUtils implements PluginMessageListener {
         } catch (IOException e) {
             finish(key);
         }
+
+        Bukkit.getScheduler().runTaskLater(SkDisaster.getInstance(), () -> {
+            if (inFlight.get(key) == token) {
+                finish(key);
+            }
+        }, 100L);
     }
 
     public static void fetchValue(String key, Consumer<Object> consumer, Payload payload) {
         callbacks.computeIfAbsent(key, k -> new ArrayDeque<>()).add(consumer);
 
-        if (inFlight.contains(key)) {
+        if (inFlight.containsKey(key)) {
             return;
         }
-        inFlight.add(key);
+        Object token = new Object();
+        inFlight.put(key, token);
 
         Player sender = Bukkit.getOnlinePlayers().stream().findFirst().orElse(null);
         if (sender == null) {
@@ -177,6 +185,12 @@ public class VelocityUtils implements PluginMessageListener {
         } catch (IOException e) {
             finish(key);
         }
+
+        Bukkit.getScheduler().runTaskLater(SkDisaster.getInstance(), () -> {
+            if (inFlight.get(key) == token) {
+                resolve(key, null);
+            }
+        }, 100L);
     }
 
     private static void resolve(String key, Object value) {

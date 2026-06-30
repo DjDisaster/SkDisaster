@@ -54,9 +54,16 @@ public final class SkDisaster extends JavaPlugin {
 
         instance = this;
         addon = Skript.registerAddon(this);
-
+        VelocityUtils velocityUtils = new VelocityUtils();
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new VelocityUtils());
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", velocityUtils);
+
+        try {
+            this.getServer().getMessenger().registerOutgoingPluginChannel(this, "bungeecord:main");
+            this.getServer().getMessenger().registerIncomingPluginChannel(this, "bungeecord:main", velocityUtils);
+        } catch (Exception ignored) {
+            // Legacy versions don't support modern namespaced keys
+        }
 
         try {
             addon.loadClasses("me.djdisaster.skDisaster", "elements");
